@@ -1,4 +1,4 @@
 rootProject.name = 'cne-power-projects'
 include 'cne-power-registry'
 include 'cne-power-gateway'
-
+include 'cne-power-base:cne-power-base-facade'

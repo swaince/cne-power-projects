@@ -1,4 +1,12 @@
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
 dependencies {
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 

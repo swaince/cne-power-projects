@@ -12,11 +12,19 @@ plugins {
 }
 
 ext {
+    set('springBootVersion', "2.3.3.RELEASE")
     set('springCloudVersion', "Hoxton.SR7")
 }
 
-allprojects {
+subprojects {
+    apply plugin: 'java-library'
+
     apply plugin: 'io.spring.dependency-management'
+
+    group = 'com.cnegroup'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public'}
@@ -26,26 +34,8 @@ allprojects {
 
     dependencyManagement {
         imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        }
-    }
-}
-
-subprojects {
-    if (name.endsWith("-facade")) {
-        apply plugin: "java-library"
-    } else {
-        apply plugin: 'java'
-        apply plugin: 'org.springframework.boot'
-    }
-
-    group = 'com.cnegroup'
-    version = '0.0.1-SNAPSHOT'
-    sourceCompatibility = '1.8'
-
-    configurations {
-        compileOnly {
-            extendsFrom annotationProcessor
         }
     }
 
@@ -59,10 +49,12 @@ subprojects {
 //            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 //        }
 
-        compileOnly 'org.projectlombok:lombok'
-        developmentOnly 'org.springframework.boot:spring-boot-devtools'
-        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
     }
 
     test {
