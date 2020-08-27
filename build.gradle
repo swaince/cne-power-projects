@@ -1,48 +1,71 @@
-plugins {
-    id 'org.springframework.boot' version '2.3.3.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-    id 'java'
-}
-
-group = 'com.cnegroup'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+buildscript {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        maven { url 'https://maven.aliyun.com/repository/spring-plugin'}
+        maven { url 'https://maven.aliyun.com/repository/public'}
+        maven { url 'https://maven.aliyun.com/repository/spring'}
     }
 }
-
-repositories {
-    mavenCentral()
+plugins {
+    id 'org.springframework.boot' version '2.3.3.RELEASE' apply false
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE' apply false
 }
 
 ext {
     set('springCloudVersion', "Hoxton.SR7")
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+allprojects {
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public'}
+        maven { url 'https://maven.aliyun.com/repository/spring'}
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
     }
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+subprojects {
+    if (name.endsWith("-facade")) {
+        apply plugin: "java-library"
+    } else {
+        apply plugin: 'java'
+        apply plugin: 'org.springframework.boot'
     }
-}
 
-test {
-    useJUnitPlatform()
+    group = 'com.cnegroup'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '1.8'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+//        implementation 'org.springframework.boot:spring-boot-starter-web'
+//        implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+//        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+//        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+//        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+//        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+//            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+//        }
+
+        compileOnly 'org.projectlombok:lombok'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }
