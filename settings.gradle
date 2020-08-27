@@ -1,3 +1,4 @@
 rootProject.name = 'cne-power-projects'
 include 'cne-power-registry'
+include 'cne-power-gateway'
 
