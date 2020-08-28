@@ -1,0 +1,17 @@
+apply plugin: 'com.diffplug.spotless'
+
+spotless {
+    java {
+        importOrder()
+        removeUnusedImports()
+        target fileTree('.') {
+            include '**/*.java'
+        }
+        eclipse().configFile "${rootDir}/src/checkstyle/codestyle.xml"
+    }
+
+    format 'xml', {
+        target 'src/**/*.xml' // must specify target
+        eclipseWtp('xml').configFile("${rootDir}/src/checkstyle/xml.prefs")
+    }
+}

@@ -1,9 +1,14 @@
 buildscript {
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
-        maven { url 'https://maven.aliyun.com/repository/spring-plugin'}
-        maven { url 'https://maven.aliyun.com/repository/public'}
-        maven { url 'https://maven.aliyun.com/repository/spring'}
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/spring-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/spring' }
+    }
+
+    dependencies {
+        classpath "io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.23"
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:5.1.2'
     }
 }
 plugins {
@@ -14,11 +19,14 @@ plugins {
 ext {
     set('springBootVersion', "2.3.3.RELEASE")
     set('springCloudVersion', "Hoxton.SR7")
+    set('spotlessIdeHook', "true")
 }
 
 subprojects {
+    spotlessIdeHook = true
     apply plugin: 'io.spring.dependency-management'
-    def module = file(".").listFiles().find {it.name == "build.gradle"}
+    apply from:  "${rootDir}/src/scripts/codestyle.gradle"
+    def module = file(".").listFiles().find { it.name == "build.gradle" }
     if (module != null) {
         apply plugin: 'java-library'
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -46,8 +54,8 @@ subprojects {
     version = '0.0.1-SNAPSHOT'
 
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/public'}
-        maven { url 'https://maven.aliyun.com/repository/spring'}
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/spring' }
         mavenCentral()
     }
 

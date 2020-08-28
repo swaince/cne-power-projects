@@ -3,3 +3,6 @@ include 'cne-power-registry'
 include 'cne-power-gateway'
 include 'cne-power-base:cne-power-base-facade'
 include 'cne-power-base:cne-power-base-web'
+include 'cne-power-operation:cne-power-operation-facade'
+include 'cne-power-operation:cne-power-operation-web'
+

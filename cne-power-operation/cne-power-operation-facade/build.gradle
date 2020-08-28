@@ -1,3 +1,5 @@
 dependencies {
+    api(project(':cne-power-base:cne-power-base-facade'))
     api 'org.springframework.boot:spring-boot-starter-web'
 }
+
