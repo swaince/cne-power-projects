@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController implements UserRestService {
 
-    @Override
-    public User getUser() {
-        User user = new User();
-        user.setName("zhangsan");
-        user.setAge(20);
-        return user;
-    }
+	@Override
+	public User getUser() {
+		User user = new User();
+		user.setName("zhangsan");
+		user.setAge(20);
+		return user;
+	}
 
 }

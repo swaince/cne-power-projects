@@ -1,5 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'com.bmuschko.docker-spring-boot-application'
+
+def projectName = 'cne-power-registry'
+def projectPort = 8761
 
 dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -8,5 +12,21 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
+}
+
+docker {
+    url = 'http://registry.cnegroup.com:2375'
+    registryCredentials {
+        url = 'http://registry.cnegroup.com'
+        username = 'admin'
+        password = 'admin123456'
+        email = 'admin@cnegroup.com'
+    }
+
+    springBootApplication {
+        baseImage = 'openjdk:8-alpine'
+        ports = [projectPort]
+        images = ["registry.cnegroup.com/library/${projectName}:0.0.1", "registry.cnegroup.com/library/${projectName}:latest"]
+    }
 }
 

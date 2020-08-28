@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 public interface DocketRestService {
 
-    /**
-     * 获取docket
-     * 
-     * @return
-     */
-    @GetMapping("/docket")
-    Docket getDocket();
+	/**
+	 * 获取docket
+	 * 
+	 * @return
+	 */
+	@GetMapping("/docket")
+	Docket getDocket();
 
 }

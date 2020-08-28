@@ -9,5 +9,4 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     implementation(project(':cne-power-base:cne-power-base-facade'))
-
 }

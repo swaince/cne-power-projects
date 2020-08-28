@@ -9,26 +9,27 @@ buildscript {
     dependencies {
         classpath "io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.23"
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:5.1.2'
+        classpath group: 'com.bmuschko', name: 'gradle-docker-plugin', version: '6.6.1'
     }
 }
 plugins {
     id 'org.springframework.boot' version '2.3.3.RELEASE' apply false
     id 'io.spring.dependency-management' version '1.0.10.RELEASE' apply false
+    id 'com.bmuschko.docker-spring-boot-application' version '6.6.1' apply false
 }
 
 ext {
     set('springBootVersion', "2.3.3.RELEASE")
     set('springCloudVersion', "Hoxton.SR7")
-    set('spotlessIdeHook', "true")
 }
 
 subprojects {
-    spotlessIdeHook = true
+
     apply plugin: 'io.spring.dependency-management'
-    apply from:  "${rootDir}/src/scripts/codestyle.gradle"
     def module = file(".").listFiles().find { it.name == "build.gradle" }
     if (module != null) {
         apply plugin: 'java-library'
+        apply from:  "${rootDir}/src/scripts/codestyle.gradle"
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
 
@@ -47,7 +48,6 @@ subprojects {
         test {
             useJUnitPlatform()
         }
-
     }
 
     group = 'com.cnegroup'

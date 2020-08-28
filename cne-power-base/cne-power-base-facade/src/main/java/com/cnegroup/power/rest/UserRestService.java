@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient("cne-power-base-web")
 public interface UserRestService {
 
-    /**
-     * 获取用户
-     * 
-     * @return
-     */
-    @GetMapping("/user")
-    User getUser();
+	/**
+	 * 获取用户
+	 * 
+	 * @return
+	 */
+	@GetMapping("/user")
+	User getUser();
 
 }

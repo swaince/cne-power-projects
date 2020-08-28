@@ -3,7 +3,6 @@ package com.cnegroup.power.controller;
 import com.cnegroup.power.dto.Docket;
 import com.cnegroup.power.rest.DocketRestService;
 import com.cnegroup.power.rest.UserRestService;
-import com.cnegroup.power.rest.UserServiceFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DocketController implements DocketRestService {
 
-    @Autowired
-    private UserRestService userServiceFeign;
+	@Autowired
+	private UserRestService userServiceFeign;
 
-    @Override
-    public Docket getDocket() {
-        Docket docket = new Docket();
-        docket.setId(1);
-        docket.setName("docket");
-        docket.setUser(userServiceFeign.getUser());
-        return docket;
-    }
+	@Override
+	public Docket getDocket() {
+		Docket docket = new Docket();
+		docket.setId(1);
+		docket.setName("docket");
+		docket.setUser(userServiceFeign.getUser());
+		return docket;
+	}
 
 }
