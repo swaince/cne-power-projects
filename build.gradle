@@ -23,9 +23,12 @@ ext {
     set('springCloudVersion', "Hoxton.SR7")
 }
 
+allprojects {
+    apply plugin: 'io.spring.dependency-management'
+}
+
 subprojects {
 
-    apply plugin: 'io.spring.dependency-management'
     def module = file(".").listFiles().find { it.name == "build.gradle" }
     if (module != null) {
         apply plugin: 'java-library'
@@ -37,6 +40,7 @@ subprojects {
             compileOnly 'org.projectlombok:lombok'
             annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
             annotationProcessor 'org.projectlombok:lombok'
+            implementation 'org.jruby:jruby'
         }
 
         configurations {

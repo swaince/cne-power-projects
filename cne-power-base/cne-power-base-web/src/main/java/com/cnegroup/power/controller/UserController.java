@@ -15,6 +15,11 @@ public class UserController implements UserRestService {
 		User user = new User();
 		user.setName("zhangsan");
 		user.setAge(20);
+		if (user.getAge() > 10) {
+			System.out.println();
+		} else {
+			System.out.println();
+		}
 		return user;
 	}
 
